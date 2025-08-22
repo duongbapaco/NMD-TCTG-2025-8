@@ -1,3 +1,17 @@
+# Tự động dò tìm tesseract
+if platform.system() == "Windows":
+    # Đường dẫn mặc định Windows (có thể đổi tùy máy bạn)
+    pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+else:
+    # Trên Linux/Streamlit Cloud: giả định tesseract đã cài qua apt-get
+    if shutil.which("tesseract") is not None:
+        pytesseract.pytesseract.tesseract_cmd = shutil.which("tesseract")
+    else:
+        raise RuntimeError("Tesseract OCR chưa được cài trong hệ thống!")
+import pytesseract
+import platform
+import shutil
+
 import cv2
 import pytesseract
 import numpy as np
